@@ -1,0 +1,16 @@
+workflows:
+  vayu-android-build:
+    name: Build VAYU APK
+    environment:
+      java: 17
+    scripts:
+      - name: Build Debug APK
+        script: |
+          # If the code is inside the V-claw folder, navigate into it
+          if [ -d "V-claw" ]; then cd V-claw; fi
+          
+          # Make gradle executable and build the app
+          chmod +x gradlew
+          ./gradlew assembleDebug
+    artifacts:
+      - "**/app/build/outputs/apk/debug/app-debug.apk"
