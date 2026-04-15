@@ -1,0 +1,21 @@
+workflows:
+  android-ci:
+    name: Android CI
+    triggers:
+      - push
+      - pull_request
+    max_build_duration: 120
+    environment:
+      vars:
+        GRADLE_USER_HOME: '$CM_BUILD_DIR/.gradle'
+    scripts:
+      - name: Set Gradle executable
+        script: |
+          cd app/applet/V-claw
+          chmod +x ./gradlew
+      - name: Build release APK
+        script: |
+          cd app/applet/V-claw
+          ./gradlew clean assembleRelease
+    artifacts:
+      - app/applet/V-claw/app/build/outputs/apk/release/app-release.apk
